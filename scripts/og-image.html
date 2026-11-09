@@ -1,0 +1,86 @@
+<!doctype html>
+<!--
+  Source for public/og-image.png, the 1200×630 link preview. Regenerate after `npm install` with:
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --allow-file-access-from-files \
+    --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,630 \
+    --screenshot=public/og-image.png scripts/og-image.html
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      @font-face {
+        font-family: "Sofia Sans Extra Condensed";
+        src: url("../node_modules/@fontsource-variable/sofia-sans-extra-condensed/files/sofia-sans-extra-condensed-latin-wght-normal.woff2") format("woff2");
+        font-weight: 1 1000;
+      }
+      @font-face {
+        font-family: "Sofia Sans";
+        src: url("../node_modules/@fontsource-variable/sofia-sans/files/sofia-sans-latin-wght-normal.woff2") format("woff2");
+        font-weight: 1 1000;
+      }
+      @font-face {
+        font-family: "Zilla Slab";
+        src: url("../node_modules/@fontsource/zilla-slab/files/zilla-slab-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      @font-face {
+        font-family: "Zilla Slab";
+        src: url("../node_modules/@fontsource/zilla-slab/files/zilla-slab-latin-500-italic.woff2") format("woff2");
+        font-weight: 500;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: "Oleo Script";
+        src: url("../node_modules/@fontsource/oleo-script/files/oleo-script-latin-700-normal.woff2") format("woff2");
+        font-weight: 700;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      body { width: 1200px; height: 630px; overflow: hidden; position: relative; background: #21140e; color: #f5ecdc; font-family: "Sofia Sans", sans-serif; }
+      .wordmark { position: absolute; left: 72px; top: 56px; display: inline-flex; flex-direction: column; align-items: center; line-height: 1; }
+      .kape { font-family: "Zilla Slab", serif; font-weight: 700; font-size: 40px; text-shadow: 0 2px 0 rgb(0 0 0 / 0.55); }
+      .torta {
+        --o: #f5ecdc;
+        font-family: "Oleo Script", cursive; font-weight: 700; font-size: 40px; color: #b02c26; margin-top: -7px; transform: rotate(-4deg);
+        text-shadow: -1.5px -1.5px 0 var(--o), 1.5px -1.5px 0 var(--o), -1.5px 1.5px 0 var(--o), 1.5px 1.5px 0 var(--o), 0 -2px 0 var(--o), 0 2px 0 var(--o), -2px 0 0 var(--o), 2px 0 0 var(--o);
+      }
+      .eyebrow { position: absolute; left: 72px; top: 196px; font-family: "Sofia Sans Extra Condensed", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.24em; text-transform: uppercase; color: #f2c35b; }
+      .name { position: absolute; left: 66px; top: 228px; display: flex; align-items: flex-end; gap: 30px; font-family: "Sofia Sans Extra Condensed", sans-serif; font-weight: 800; text-transform: uppercase; line-height: 0.8; font-size: 196px; }
+      .word { display: flex; flex-direction: column; }
+      .gloss { margin-top: 14px; padding-top: 10px; border-top: 1px solid rgb(245 236 220 / 0.4); font-family: "Zilla Slab", serif; font-style: italic; font-weight: 500; font-size: 26px; line-height: 1; text-transform: none; color: rgb(245 236 220 / 0.75); }
+      .at .big { font-family: "Oleo Script", cursive; font-weight: 700; text-transform: none; font-size: 84px; line-height: 1; color: #f2c35b; padding-bottom: 54px; }
+      .footer { position: absolute; left: 72px; bottom: 58px; font-family: "Sofia Sans Extra Condensed", sans-serif; font-weight: 700; font-size: 25px; letter-spacing: 0.14em; text-transform: uppercase; color: rgb(245 236 220 / 0.85); }
+      .footer span { color: #f2c35b; }
+      .badge { position: absolute; right: 64px; top: 52px; width: 230px; height: 230px; color: rgb(245 236 220 / 0.85); transform: rotate(-8deg); }
+      .badge .ring { font-family: "Sofia Sans Extra Condensed", sans-serif; font-weight: 800; font-size: 15.5px; letter-spacing: 0.08em; text-transform: uppercase; fill: currentColor; }
+      .badge .num { font-family: "Zilla Slab", serif; font-weight: 700; font-size: 36px; fill: currentColor; }
+      .badge .street { font-family: "Sofia Sans Extra Condensed", sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; fill: currentColor; }
+      /* The pleated edge of a torta cup, in the red of their logo. */
+      .edge { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: #b02c26;
+        mask: conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% / 22px 100%; }
+    </style>
+  </head>
+  <body>
+    <div class="wordmark"><span class="kape">Kape’t</span><span class="torta">Torta</span></div>
+
+    <svg class="badge" viewBox="0 0 200 200">
+      <defs><path id="ring" d="M100 100m-75 0a75 75 0 1 1 150 0a75 75 0 1 1-150 0" /></defs>
+      <circle cx="100" cy="100" r="97" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <circle cx="100" cy="100" r="91" fill="none" stroke="currentColor" stroke-width=".75" />
+      <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="1" />
+      <text class="ring"><textPath href="#ring" textLength="468" lengthAdjust="spacing">Kape’t Torta ✦ Elmhurst, Queens ✦ Est. 2019 ✦</textPath></text>
+      <text class="num" x="100" y="104" text-anchor="middle">83-13</text>
+      <text class="street" x="100" y="126" text-anchor="middle">Queens Blvd</text>
+    </svg>
+
+    <p class="eyebrow">Filipino bakery &amp; café · Elmhurst, Queens</p>
+    <div class="name">
+      <span class="word"><span class="big">Kape</span><span class="gloss">coffee</span></span>
+      <span class="word at"><span class="big">at</span><span class="gloss">and</span></span>
+      <span class="word"><span class="big">Torta</span><span class="gloss">cake</span></span>
+    </div>
+
+    <p class="footer">Ube cheese pandesal <span>·</span> tortas <span>·</span> whole cakes <span>·</span> kapeng barako <span>·</span> 83-13 Queens Blvd</p>
+    <div class="edge"></div>
+  </body>
+</html>

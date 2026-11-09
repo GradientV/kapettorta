@@ -1,0 +1,507 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Sofia Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sofia Sans Extra Condensed Variable", "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-slab: "Zilla Slab", Rockwell, "Roboto Slab", Georgia, serif;
+  --font-script: "Oleo Script", "Brush Script MT", cursive;
+
+  /*
+   * Kape't Torta's own colors: the coffee brown of their logo square and the red of its "Torta",
+   * with a dark roast for the header and footer, pastry-box cream and kraft for the pages, and ube
+   * purple and yema yellow from the two flavors they're known for.
+   */
+  --color-roast: #21140e;
+  --color-roast-800: #2c1b13;
+  --color-roast-700: #3b261c;
+  --color-kape: #6e3c29;
+  --color-cream: #f5ecdc;
+  --color-paper: #fbf7ef;
+  --color-kraft: #ead9bd;
+  --color-torta: #b02c26;
+  --color-torta-700: #8a1f1b;
+  --color-ube: #48295c;
+  --color-ube-700: #3a2049;
+  --color-yema: #f2c35b;
+  --color-pandan: #5c9a5f;
+
+  --spacing-22: 5.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+    -webkit-text-size-adjust: 100%;
+
+    @variant lg {
+      scroll-padding-top: 6rem;
+    }
+  }
+
+  body {
+    @apply bg-cream font-sans text-[1.0625rem] leading-relaxed text-roast antialiased;
+  }
+
+  ::selection {
+    @apply bg-yema text-roast;
+  }
+
+  /* Dark sections set --focus-ring to yema; on light ones roast keeps the contrast. */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring, var(--color-roast));
+    outline-offset: 3px;
+  }
+
+  i {
+    font-style: italic;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Square buttons in tracked condensed capitals, as on The Smith and Carnegie Diner. No pills. */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2.5 border-2 px-6 py-3 font-display text-[1.06rem] leading-none font-bold tracking-[0.15em] whitespace-nowrap uppercase transition-colors duration-200;
+    min-height: 3.1rem;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 text-[0.98rem];
+    min-height: 2.75rem;
+  }
+
+  .btn-torta {
+    @apply border-torta bg-torta text-paper hover:border-torta-700 hover:bg-torta-700;
+  }
+
+  .btn-roast {
+    @apply border-roast bg-roast text-cream hover:border-torta hover:bg-torta hover:text-paper;
+  }
+
+  .btn-yema {
+    @apply border-yema bg-yema text-roast hover:border-cream hover:bg-cream;
+  }
+
+  /* Outline button for light backgrounds. */
+  .btn-line {
+    @apply border-roast text-roast hover:bg-roast hover:text-cream;
+  }
+
+  /* Outline button for dark backgrounds and photos. */
+  .btn-ghost {
+    @apply border-cream/70 text-cream hover:border-cream hover:bg-cream hover:text-roast;
+  }
+
+  /* Underlined capitals, like The Smith's "MORE INFO". */
+  .link-caps {
+    @apply inline-flex items-center gap-2 font-display text-[1.02rem] font-bold tracking-[0.15em] uppercase underline decoration-current/35 decoration-2 underline-offset-[6px] transition hover:decoration-current;
+  }
+
+  .link-inline {
+    @apply font-semibold underline decoration-current/40 decoration-1 underline-offset-[3px] hover:decoration-current;
+  }
+
+  .nav-link {
+    @apply font-display text-[1.02rem] font-bold tracking-[0.18em] uppercase decoration-yema decoration-2 underline-offset-[8px] hover:underline;
+  }
+
+  .eyebrow {
+    @apply flex items-center gap-2 font-display text-[0.98rem] leading-none font-bold tracking-[0.24em] uppercase;
+  }
+
+  .display-xl {
+    @apply font-display text-[3.6rem] leading-[0.86] font-extrabold tracking-[0.004em] text-balance uppercase sm:text-[4.8rem] lg:text-[6.2rem];
+  }
+
+  .display-lg {
+    @apply font-display text-[2.8rem] leading-[0.88] font-extrabold tracking-[0.004em] text-balance uppercase sm:text-[3.4rem] lg:text-[3.9rem];
+  }
+
+  /* Pronunciation under a dish name. */
+  .say {
+    @apply font-slab text-[0.95rem] italic opacity-70;
+  }
+
+  .price-line {
+    @apply font-display text-[1.3rem] leading-none font-extrabold tracking-[0.06em] tabular-nums;
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-yema focus:px-5 focus:py-3 focus:font-semibold focus:text-roast;
+  }
+
+  .strip {
+    @apply font-display text-[0.98rem] leading-tight font-semibold tracking-[0.1em] uppercase;
+  }
+
+  /* ------------------------------------------------------------------ Wordmark */
+
+  .wordmark {
+    @apply inline-flex flex-col items-center leading-none select-none;
+  }
+
+  .wordmark-kape {
+    @apply font-slab font-bold text-cream;
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 0 rgb(0 0 0 / 0.55);
+  }
+
+  /* Red script with a cream outline, like the "Torta" in their logo. */
+  .wordmark-torta {
+    --outline: var(--color-cream);
+    @apply font-script font-bold text-torta;
+    margin-top: -0.18em;
+    transform: rotate(-4deg);
+    text-shadow:
+      -1.5px -1.5px 0 var(--outline), 1.5px -1.5px 0 var(--outline), -1.5px 1.5px 0 var(--outline), 1.5px 1.5px 0 var(--outline),
+      0 -2px 0 var(--outline), 0 2px 0 var(--outline), -2px 0 0 var(--outline), 2px 0 0 var(--outline);
+  }
+
+  .wordmark-header .wordmark-kape { font-size: 1.55rem; }
+  .wordmark-header .wordmark-torta { font-size: 1.55rem; }
+
+  @variant lg {
+    .wordmark-header .wordmark-kape { font-size: 1.95rem; }
+    .wordmark-header .wordmark-torta { font-size: 1.95rem; }
+  }
+
+  .wordmark-footer .wordmark-kape,
+  .wordmark-footer .wordmark-torta {
+    font-size: 2.6rem;
+  }
+
+  /* ------------------------------------------------------------------ Header */
+
+  /* The hanging Order tab, after The Smith's red Reservations tab, with the pleated edge of a torta cup. */
+  .order-tab {
+    @apply absolute top-0 right-5 z-10 w-32 flex-col items-center justify-center bg-torta pb-3 text-paper transition-colors hover:bg-torta-700 sm:right-8 lg:right-12;
+    --tooth: 0.85rem;
+    height: calc(100% + 1.1rem);
+  }
+
+  .order-tab-label {
+    @apply font-display text-[1.7rem] leading-none font-extrabold tracking-[0.16em] uppercase;
+  }
+
+  .order-tab-sub {
+    @apply mt-1 font-display text-[0.78rem] font-bold tracking-[0.14em] text-paper/80 uppercase;
+  }
+
+  #mobile-nav {
+    top: var(--nav-top, 4rem);
+  }
+
+  /* ------------------------------------------------------------------ Hero */
+
+  .hero-name {
+    @apply mt-5 flex flex-wrap items-end gap-x-[0.16em] gap-y-2 font-display leading-[0.8] font-extrabold uppercase;
+    /* Sized so all three words stay on one line, down to a 360px phone. */
+    font-size: clamp(3.4rem, 18.5vw, 13.5rem);
+  }
+
+  .hero-word {
+    @apply inline-flex flex-col;
+  }
+
+  .hero-big {
+    @apply block;
+  }
+
+  .hero-gloss {
+    @apply mt-3 block border-t border-cream/40 pt-2 font-slab text-[1.05rem] leading-none font-medium tracking-normal text-cream/75 normal-case italic sm:text-[1.2rem];
+  }
+
+  /* "at" sits small and raised in red script, the way the 't sits in the name. */
+  .hero-word-at .hero-big {
+    @apply font-script text-yema normal-case;
+    font-size: 0.42em;
+    font-weight: 700;
+    line-height: 1;
+    padding-bottom: 0.32em;
+  }
+
+  .hero-word-at {
+    @apply self-end;
+  }
+
+  /* ------------------------------------------------------------------ Status */
+
+  .open-status {
+    @apply inline-flex items-center gap-2.5;
+  }
+
+  .open-dot {
+    @apply inline-block size-2.5 shrink-0 bg-cream/50;
+    transform: rotate(45deg);
+  }
+
+  [data-state="open"] .open-dot { background: var(--color-pandan); }
+  [data-state="closing"] .open-dot { background: var(--color-yema); }
+  [data-state="closed"] .open-dot { background: var(--color-torta); }
+
+  /* ------------------------------------------------------------------ Frames and edges */
+
+  /*
+   * Cut corners and a thin inner rule that follows them, after The Smith's location cards.
+   * Set the panel color with the frame-* class; the rule takes --frame-line.
+   */
+  .frame,
+  .frame::before,
+  .frame::after,
+  .chamfer,
+  .chamfer-sm {
+    clip-path: polygon(var(--c) 0, calc(100% - var(--c)) 0, 100% var(--c), 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, var(--c) 100%, 0 calc(100% - var(--c)), 0 var(--c));
+  }
+
+  .chamfer { --c: 1.1rem; }
+  .chamfer-sm { --c: 0.7rem; }
+
+  .frame {
+    --cut: 1.15rem;
+    --inset: 0.45rem;
+    --c: var(--cut);
+    position: relative;
+    isolation: isolate;
+    background: var(--frame-bg);
+  }
+
+  .frame::before,
+  .frame::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .frame::before {
+    --c: calc(var(--cut) - var(--inset) * 0.586);
+    inset: var(--inset);
+    background: var(--frame-line);
+  }
+
+  .frame::after {
+    --c: calc(var(--cut) - var(--inset) * 0.586 - 0.6px);
+    inset: calc(var(--inset) + 1px);
+    background: var(--frame-bg);
+  }
+
+  .frame-paper { --frame-bg: var(--color-paper); --frame-line: rgb(33 20 14 / 0.28); }
+  .frame-roast { --frame-bg: var(--color-roast); --frame-line: rgb(245 236 220 / 0.3); }
+  .frame-roast-2 { --frame-bg: var(--color-roast-800); --frame-line: rgb(245 236 220 / 0.22); }
+
+  /*
+   * Zigzag edges, like the pleated paper cup a torta is baked in. The element's own background
+   * makes the teeth; whatever is behind it shows between them. --tooth sets the width of one pleat.
+   */
+  .edge-b {
+    mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / var(--tooth, 1rem) 100%;
+  }
+
+  .edge-y {
+    mask:
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% 100% / var(--tooth, 1rem) 51% repeat-x,
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% 0 / var(--tooth, 1rem) 51% repeat-x;
+  }
+
+  /* A square sticker, not a pill. */
+  .stamp {
+    @apply bg-yema px-3 py-2 font-display text-[0.95rem] leading-none font-extrabold tracking-[0.18em] text-roast uppercase;
+    transform: rotate(-3deg);
+    box-shadow: 3px 3px 0 var(--color-roast);
+  }
+
+  /* ------------------------------------------------------------------ Badge */
+
+  .badge-ring {
+    font-family: var(--font-display);
+    font-size: 15.5px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    fill: currentColor;
+  }
+
+  .badge-number {
+    font-family: var(--font-slab);
+    font-size: 36px;
+    font-weight: 700;
+    fill: currentColor;
+  }
+
+  .badge-street {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    fill: currentColor;
+  }
+
+  /* ------------------------------------------------------------------ Long copy */
+
+  .prose-story,
+  .prose-dark {
+    @apply space-y-4 text-[1.1rem] leading-relaxed;
+  }
+
+  .prose-story { @apply text-roast/85; }
+  .prose-dark { @apply text-cream/85; }
+
+  /* ------------------------------------------------------------------ Halo-halo */
+
+  .halo-num {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 800;
+    fill: currentColor;
+  }
+
+  .halo-list {
+    @apply border-t border-cream/20;
+  }
+
+  .halo-list li {
+    @apply flex items-center gap-4 border-b border-cream/20 py-2.5 text-[1.08rem];
+  }
+
+  .halo-list-num {
+    @apply grid size-7 shrink-0 place-items-center rounded-full border border-cream/60 font-display text-[0.95rem] font-extrabold;
+  }
+
+  /* ------------------------------------------------------------------ Menu */
+
+  .menu-block {
+    @apply pt-6 pb-8;
+  }
+
+  .menu-title {
+    @apply flex items-baseline gap-3 border-b-2 border-roast pb-2 font-display text-[2.3rem] leading-none font-extrabold tracking-[0.01em] uppercase;
+  }
+
+  .menu-local {
+    @apply font-script text-[1.35rem] font-normal tracking-normal text-torta normal-case;
+  }
+
+  .menu-item {
+    @apply border-b border-roast/15 py-3.5;
+  }
+
+  .menu-name {
+    @apply font-slab text-[1.22rem] leading-snug font-semibold;
+  }
+
+  .menu-price {
+    @apply font-display text-[1.25rem] leading-none font-extrabold tracking-[0.04em] whitespace-nowrap tabular-nums;
+  }
+
+  .menu-desc {
+    @apply mt-1.5 text-[0.98rem] leading-snug text-roast/75;
+  }
+
+  .menu-unit {
+    @apply mt-1 font-display text-[0.92rem] font-bold tracking-[0.12em] text-torta uppercase;
+  }
+
+  .menu-note {
+    @apply mt-4 text-[0.95rem] leading-snug text-roast/70 italic;
+  }
+
+  .menu-table {
+    @apply mt-1 w-full;
+  }
+
+  .menu-table th,
+  .menu-table td {
+    @apply border-b border-roast/15 py-3 text-left;
+  }
+
+  .menu-table thead th {
+    @apply py-2 font-display text-[0.95rem] font-bold tracking-[0.16em] text-roast/60 uppercase;
+  }
+
+  .menu-table tbody th {
+    @apply font-slab text-[1.22rem] font-semibold;
+  }
+
+  .menu-table td {
+    @apply text-right font-display text-[1.25rem] font-extrabold tracking-[0.04em] tabular-nums;
+  }
+
+  .menu-table thead th:not(:first-child) {
+    @apply text-right;
+  }
+
+  /* ------------------------------------------------------------------ Visit */
+
+  .hours-table th,
+  .hours-table td {
+    @apply border-b border-roast/20 py-2.5 text-left font-normal;
+  }
+
+  .hours-table td {
+    @apply text-right tabular-nums;
+  }
+
+  .hours-table tr[data-today] th,
+  .hours-table tr[data-today] td {
+    @apply font-bold text-torta;
+  }
+
+  .hours-table tr[data-today] th::after {
+    content: "Today";
+    @apply ml-3 bg-torta px-1.5 py-0.5 font-display text-[0.8rem] font-bold tracking-[0.14em] text-paper uppercase;
+  }
+
+  /* Toned down to sit on the kraft paper, but with enough color left that the red pin still shows. */
+  .map {
+    filter: saturate(0.45) sepia(0.2) contrast(1.03);
+    transition: filter 0.3s;
+  }
+
+  .map:hover,
+  .map:focus-visible {
+    filter: none;
+  }
+
+  /* ------------------------------------------------------------------ Footer */
+
+  /* The pastry counter keeps its height on phones and crops at the sides instead of shrinking. */
+  .counter {
+    width: max(100%, 47rem);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    max-width: 82rem;
+    height: auto;
+    aspect-ratio: 1200 / 170;
+  }
+}
+
+@layer utilities {
+  /* Scroll reveal: only hidden when scripts run (html.js), so nothing stays invisible if they don't. */
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .js [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}
