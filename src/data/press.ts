@@ -3,8 +3,15 @@
  * TODO: get the owners' OK to feature these, and refresh the ratings now and then.
  */
 
+/**
+ * Both lines are his words in The Infatuation's guide (Apr 16, 2026), which calls him "the Knicks
+ * guard." Shown as press, with a link to the guide: not as an endorsement, and without his photo.
+ */
 export const spotlight = {
   quote: 'It’s like being invited to an aunt’s house.',
+  /** The words of `quote` to run the yellow highlighter over. */
+  highlight: 'an aunt’s house.',
+  order: 'I love the ube pandesal with cheese, but really, you can’t go wrong.',
   who: 'Jordan Clarkson',
   role: 'New York Knicks guard',
   outlet: 'The Infatuation',

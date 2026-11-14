@@ -1,70 +1,60 @@
-import { hours } from '../data/hours.ts'
 import { site } from '../data/site.ts'
-import { pastryCounter } from '../lib/art.ts'
-import { summarizeWeek } from '../lib/hours.ts'
 import { html } from '../lib/html.ts'
 import { icon } from '../lib/icons.ts'
-import { badge, container, external, wordmark } from './ui.ts'
+import { container, external, logo, weekSummary } from './ui.ts'
 
-const heading = 'eyebrow text-yema'
-const linkClass = 'hover:text-yema'
+const heading = 'text-[0.9rem] font-bold text-cheese'
+const linkClass = 'hover:text-cheese hover:underline underline-offset-4'
 
 /** The fixed Call / Directions / Order bar on phones. */
 function actionBar(): string {
-  const cell = 'flex flex-col items-center justify-center gap-1 py-2.5 font-display text-[0.92rem] font-bold tracking-[0.16em] uppercase'
-  return html`<nav aria-label="Quick actions" class="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 divide-x divide-cream/15 border-t border-cream/15 bg-roast pb-[env(safe-area-inset-bottom)] text-cream lg:hidden" style="--focus-ring: var(--color-yema)">
+  const cell = 'flex flex-col items-center justify-center gap-1 py-2.5 text-[0.85rem] font-bold'
+  return html`<nav aria-label="Quick actions" class="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 divide-x divide-milk/15 border-t border-milk/15 bg-ube-950 pb-[env(safe-area-inset-bottom)] text-milk lg:hidden" style="--focus-ring: var(--color-cheese)">
     <a class="${cell}" href="${site.phoneHref}">${icon('phone', 'size-5')} Call</a>
     <a class="${cell}" href="${site.links.directions}" ${external}>${icon('pin', 'size-5')} Directions</a>
-    <a class="${cell} bg-torta" href="${site.links.order}" ${external}>${icon('bag', 'size-5')} Order</a>
+    <a class="${cell} bg-cheese text-ink" href="${site.links.order}" ${external}>${icon('bag', 'size-5')} Order</a>
   </nav>`
 }
 
+/** Both pages end on a white section, which the scallops along the top of the footer continue. */
 export function footer(): string {
   const { street, locality, region, postalCode } = site.address
-  return html`<div class="overflow-hidden bg-kraft pt-6 text-roast" aria-hidden="true">
-    <div class="counter">${pastryCounter('block h-full w-full')}</div>
-  </div>
-  <footer class="bg-roast text-cream" style="--focus-ring: var(--color-yema)">
-    <div class="${container} grid gap-12 py-16 sm:py-20 lg:grid-cols-12">
-      <div class="flex items-center gap-7 lg:col-span-4">
-        ${badge('footer-badge', 'size-28 shrink-0 text-cream/75 sm:size-32')}
-        <div>
-          <a href="#top" aria-label="Kape’t Torta, back to the top">${wordmark('footer')}</a>
-          <p class="mt-3 max-w-[16rem] text-[0.98rem] text-cream/70"><i>Kape at torta</i>: coffee and cake from Gingoog, baked and brewed on Queens Blvd since ${site.established}.</p>
-        </div>
+  return html`<div class="scallops bg-ube-950" style="--scallop-color: var(--color-milk)" aria-hidden="true"></div>
+  <footer class="bg-ube-950 text-milk/85" style="--focus-ring: var(--color-cheese)">
+    <div class="${container} grid gap-10 pt-12 pb-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+      <div class="flex items-start gap-5 sm:col-span-2 lg:col-span-4">
+        <a href="/" aria-label="Kape’t Torta, home">${logo('lg')}</a>
+        <p class="max-w-[17rem] pt-1 text-[0.98rem] text-milk/70"><i>Kape at torta</i> means coffee and cake. Baked and brewed on Queens Blvd since ${site.established}.</p>
       </div>
-
-      <div class="grid gap-10 sm:grid-cols-3 lg:col-span-8 lg:pl-8">
-        <div>
-          <p class="${heading}">Visit</p>
-          <address class="mt-4 leading-relaxed text-cream/85 not-italic">
-            <a class="${linkClass}" href="${site.links.directions}" ${external}>${street}<br />${locality}, ${region} ${postalCode}</a><br />
-            <a class="${linkClass}" href="${site.phoneHref}">${site.phone}</a><br />
-            <a class="${linkClass} break-all" href="mailto:${site.email}">${site.email}</a>
-          </address>
-        </div>
-        <div>
-          <p class="${heading}">Hours</p>
-          <dl class="mt-4 grid grid-cols-[auto_1fr] gap-x-5 gap-y-1 leading-relaxed text-cream/85">
-            ${summarizeWeek(hours).map((group) => html`<dt>${group.days}</dt><dd class="tabular-nums">${group.hours}</dd>`)}
-          </dl>
-        </div>
-        <div>
-          <p class="${heading}">Order &amp; follow</p>
-          <ul class="mt-4 space-y-1 leading-relaxed text-cream/85">
-            <li><a class="${linkClass}" href="${site.links.order}" ${external}>Order pickup or delivery</a></li>
-            <li><a class="${linkClass}" href="#cakes">Pre-order a whole cake</a></li>
-            <li><a class="${linkClass} inline-flex items-center gap-2" href="${site.links.instagram}" ${external}>${icon('instagram', 'size-4')} ${site.instagramHandle}</a></li>
-            <li><a class="${linkClass} inline-flex items-center gap-2" href="${site.links.facebook}" ${external}>${icon('facebook', 'size-4')} Facebook</a></li>
-          </ul>
-        </div>
+      <div class="lg:col-span-3">
+        <h2 class="${heading}">Visit</h2>
+        <address class="mt-3 leading-relaxed not-italic">
+          <a class="${linkClass}" href="${site.links.directions}" ${external}>${street}<br />${locality}, ${region} ${postalCode}</a><br />
+          <a class="${linkClass} tabular-nums" href="${site.phoneHref}">${site.phone}</a><br />
+          <a class="${linkClass} break-all" href="mailto:${site.email}">${site.email}</a>
+        </address>
+      </div>
+      <div class="lg:col-span-3">
+        <h2 class="${heading}">Hours</h2>
+        <dl class="mt-3 grid grid-cols-[auto_1fr] gap-x-5 leading-relaxed">
+          ${weekSummary().map((group) => html`<dt>${group.days}</dt><dd class="tabular-nums">${group.hours}</dd>`)}
+        </dl>
+      </div>
+      <div class="lg:col-span-2">
+        <h2 class="${heading}">More</h2>
+        <ul class="mt-3 space-y-0.5 leading-relaxed">
+          <li><a class="${linkClass}" href="/story">Our story</a></li>
+          <li><a class="${linkClass}" href="${site.links.order}" ${external}>Order online</a></li>
+          <li><a class="${linkClass} inline-flex items-center gap-2" href="${site.links.instagram}" ${external}>${icon('instagram', 'size-4')} Instagram</a></li>
+          <li><a class="${linkClass} inline-flex items-center gap-2" href="${site.links.facebook}" ${external}>${icon('facebook', 'size-4')} Facebook</a></li>
+        </ul>
       </div>
     </div>
 
-    <div class="border-t border-cream/10">
-      <div class="${container} flex flex-col gap-3 py-7 font-display text-[0.92rem] font-semibold tracking-[0.18em] text-cream/55 uppercase sm:flex-row sm:items-center sm:justify-between">
-        <p>© <span data-year>${new Date().getFullYear()}</span> Kape’t Torta · <span class="normal-case tracking-normal font-slab italic text-[1.05rem] text-cream/70">Daghang salamat!</span></p>
-        <p>Website by <a class="text-cream/80 underline underline-offset-4 hover:text-cream" href="https://gradientv.com" ${external}>GradientV</a></p>
+    <div class="border-t border-milk/10">
+      <div class="${container} flex flex-col gap-2 py-6 text-[0.92rem] text-milk/55 sm:flex-row sm:items-center sm:justify-between">
+        <p>© <span data-year>${new Date().getFullYear()}</span> Kape’t Torta · <i class="text-milk/75">Daghang salamat!</i></p>
+        <p>Website by <a class="text-milk/80 underline underline-offset-4 hover:text-milk" href="https://gradientv.com" ${external}>GradientV</a></p>
       </div>
     </div>
     <div class="h-16 lg:hidden" aria-hidden="true"></div>

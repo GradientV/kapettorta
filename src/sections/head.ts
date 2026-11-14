@@ -1,11 +1,25 @@
 import { hours } from '../data/hours.ts'
-import { cakes, menu } from '../data/menu.ts'
+import { cakes, menuGroups } from '../data/menu.ts'
 import { site } from '../data/site.ts'
 import { DAY_NAMES, toIsoTime, WEEK_ORDER } from '../lib/hours.ts'
 import { esc, html } from '../lib/html.ts'
+import type { Page } from './ui.ts'
 
-const title = `${site.name} | Filipino Bakery & Café in Elmhurst, Queens`
 const image = `${site.url}/og-image.png`
+
+const pages: Record<Page, { title: string; description: string; path: string }> = {
+  home: {
+    title: `${site.name} | Filipino Bakery & Café in Elmhurst, Queens`,
+    description: site.description,
+    path: '/',
+  },
+  story: {
+    title: `Our Story | ${site.name}, Filipino Bakery in Elmhurst, Queens`,
+    description:
+      'Three friends from Gingoog, Mindanao, opened Kape’t Torta in a former nail salon on Queens Blvd in 2019. Their story, the coffee and cake from home, and what the press has said.',
+    path: '/story',
+  },
+}
 
 const offer = (price: number) => ({ '@type': 'Offer', price: price.toFixed(2), priceCurrency: 'USD' })
 
@@ -59,14 +73,14 @@ function structuredData(): string {
       '@type': 'Menu',
       url: `${site.url}/#menu`,
       hasMenuSection: [
-        ...menu.map((section) => ({
+        ...menuGroups.map((group) => ({
           '@type': 'MenuSection',
-          name: section.title,
-          hasMenuItem: section.items.map((item) => ({
+          name: group.title,
+          hasMenuItem: group.items.map((item) => ({
             '@type': 'MenuItem',
             name: item.name,
-            ...(item.description ? { description: item.description } : {}),
-            ...(item.price ? { offers: offer(item.price) } : {}),
+            ...(item.note ? { description: item.note } : {}),
+            offers: offer(item.price),
           })),
         })),
         cakeSection,
@@ -79,23 +93,24 @@ function structuredData(): string {
   return JSON.stringify(data).replace(/</g, '\\u003c')
 }
 
-export function head(): string {
-  const description = esc(site.description)
+export function head(page: Page): string {
+  const { title, description, path } = pages[page]
+  const url = `${site.url}${path}`
   return html`<title>${esc(title)}</title>
-    <meta name="description" content="${description}" />
-    <link rel="canonical" href="${site.url}/" />
-    <meta name="theme-color" content="#21140e" />
+    <meta name="description" content="${esc(description)}" />
+    <link rel="canonical" href="${url}" />
+    <meta name="theme-color" content="#3f2459" />
     <meta name="format-detection" content="telephone=no" />
-    <meta property="og:type" content="restaurant" />
+    <meta property="og:type" content="${page === 'home' ? 'restaurant' : 'article'}" />
     <meta property="og:site_name" content="${esc(site.name)}" />
     <meta property="og:title" content="${esc(title)}" />
-    <meta property="og:description" content="${description}" />
-    <meta property="og:url" content="${site.url}/" />
+    <meta property="og:description" content="${esc(description)}" />
+    <meta property="og:url" content="${url}" />
     <meta property="og:image" content="${image}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Kape’t Torta, Filipino bakery and café at 83-13 Queens Blvd, Elmhurst, Queens" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <script type="application/ld+json">${structuredData()}</script>`
+    ${page === 'home' && html`<script type="application/ld+json">${structuredData()}</script>`}`
 }

@@ -78,13 +78,24 @@ export interface ImgOptions {
   priority?: boolean
   /** Empty alt, for photos next to text that already says the same thing. */
   decorative?: boolean
+  /**
+   * Only download the photo at this width and up, e.g. `640px`, for photos the layout hides on
+   * phones. Smaller screens get a 1×1 placeholder instead.
+   */
+  minViewport?: string
 }
 
+/** A transparent 1×1 GIF. */
+const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
 export function img(photo: Photo, options: ImgOptions): string {
-  const { width, sizes, class: className = '', priority = false, decorative = false } = options
+  const { width, sizes, class: className = '', priority = false, decorative = false, minViewport } = options
   const height = Math.round(width / photo.ratio)
-  const srcset = photo.widths.map((w) => `${photo.url(w)} ${w}w`).join(', ')
+  const srcset = esc(photo.widths.map((w) => `${photo.url(w)} ${w}w`).join(', '))
   const loading = priority ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'
   const alt = decorative ? '' : esc(photo.alt)
-  return `<img src="${esc(photo.url(width))}" srcset="${esc(srcset)}" sizes="${sizes}" width="${width}" height="${height}" alt="${alt}" class="${className}" ${loading}>`
+  if (minViewport) {
+    return `<picture><source media="(min-width: ${minViewport})" srcset="${srcset}" sizes="${sizes}"><img src="${BLANK}" width="${width}" height="${height}" alt="${alt}" class="${className}" ${loading}></picture>`
+  }
+  return `<img src="${esc(photo.url(width))}" srcset="${srcset}" sizes="${sizes}" width="${width}" height="${height}" alt="${alt}" class="${className}" ${loading}>`
 }

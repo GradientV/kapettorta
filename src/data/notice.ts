@@ -4,15 +4,15 @@ export interface Notice {
   /** Optional link or phone number after the message. */
   link?: { label: string; href: string }
   /**
-   * Last day to show it, as YYYY-MM-DD (New York time). After that the strip goes back to the
-   * usual hours and address by itself, even if nobody redeploys.
+   * Last day to show it, as YYYY-MM-DD (New York time). After that the strip takes itself down,
+   * even if nobody redeploys.
    */
   until?: string
 }
 
 /**
- * Shown in the red strip at the very top of the page, in place of the usual hours and address,
- * for holiday pre-orders, closures and specials. Set it to `null` when there's nothing to say.
+ * Shown in a thin purple strip above the header on every page, for holiday pre-orders, closures
+ * and specials. Set it to `null` when there's nothing to say, and the strip goes away.
  *
  * TODO: this one is a sample, written from their Thanksgiving pre-order posts (Instagram, Nov 2022;
  * Facebook, Nov 2024). Confirm with the owners before launch, or set it to null.
