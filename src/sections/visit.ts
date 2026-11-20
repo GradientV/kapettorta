@@ -20,7 +20,7 @@ export function visit(): string {
       <div class="lg:col-span-5">
         <h2 id="visit-title" class="h2">Visit</h2>
         <address class="mt-5 font-display text-[1.75rem] leading-tight not-italic">
-          <a class="hover:text-ube-700" href="${site.links.directions}" ${external}>${street}<br />${locality}, ${region} ${postalCode}</a>
+          <a class="hover:text-accent" href="${site.links.directions}" ${external}>${street}<br />${locality}, ${region} ${postalCode}</a>
         </address>
         <p class="mt-2 text-ink/70">${site.transit}, with a bus stop out front.</p>
 
@@ -38,13 +38,13 @@ export function visit(): string {
         </table>
 
         <div class="mt-7 flex flex-wrap gap-3">
-          <a class="btn btn-ube" href="${site.links.directions}" ${external}>${icon('pin', 'size-4')} Directions</a>
-          <a class="btn btn-line" href="${site.phoneHref}">${icon('phone', 'size-4')} ${site.phone}</a>
+          <a class="btn btn-primary" href="${site.links.directions}" ${external}>${icon('pin', 'size-4')} Directions</a>
+          <a class="btn btn-line tabular-nums" href="${site.phoneHref}">${icon('phone', 'size-4')} ${site.phone}</a>
         </div>
       </div>
 
       <div class="flex flex-col gap-7 lg:col-span-7">
-        <iframe class="map block aspect-[4/3] w-full border-2 border-ink lg:aspect-[16/12]" src="${site.links.mapEmbed}" title="Map: Kape’t Torta at 83-13 Queens Blvd, Elmhurst" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe class="map block aspect-[4/3] w-full border border-rule" src="${site.links.mapEmbed}" title="Map showing Kape’t Torta at 83-13 Queens Blvd, Elmhurst" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div class="grid gap-6 sm:grid-cols-2">
           <div>
             <h3 class="font-bold">Pickup and delivery</h3>

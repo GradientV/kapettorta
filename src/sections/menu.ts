@@ -20,7 +20,7 @@ function group({ id, title, items, footnote }: MenuGroup): string {
       ${items.map(
         (item) => html`<li>
           <p class="flex items-baseline justify-between gap-4">
-            <span class="font-bold">${esc(item.name)}${item.tag && html` <span class="tag ml-1">${esc(item.tag)}</span>`}</span>
+            <span class="font-semibold">${esc(item.name)}</span>
             <span class="menu-price">${money(item.price)}</span>
           </p>
           ${item.note && html`<p class="mt-0.5 text-[0.95rem] leading-snug text-ink/65">${esc(item.note)}</p>`}
@@ -52,7 +52,7 @@ function cakeGroup(): string {
       </tbody>
     </table>
     <p class="mt-3 text-[0.95rem] text-ink/65">
-      Whole cakes for birthdays and holidays: <a class="link font-semibold text-ink" href="${site.phoneHref}">call to reserve one</a>.
+      <a class="link font-semibold text-accent" href="${site.phoneHref}">Call to reserve a whole cake</a> for a birthday or holiday.
       ${junior && html`${junior.name} also comes in a junior size, ${money(junior.junior ?? 0)}.`}
     </p>
   </div>`
@@ -67,7 +67,7 @@ export function menuSection(): string {
           <p class="mt-3 max-w-[34rem] text-ink/70">Everything is baked right here. Prices on the delivery apps can run a little higher.</p>
         </div>
         <div class="flex flex-wrap gap-3">
-          <a class="btn btn-ube" href="${site.links.order}" ${external}>${icon('bag', 'size-5')} Order online</a>
+          <a class="btn btn-primary" href="${site.links.order}" ${external}>${icon('bag', 'size-5')} Order online</a>
           <a class="btn btn-line" href="${site.phoneHref}">${icon('phone', 'size-4')} Call to order</a>
         </div>
       </div>

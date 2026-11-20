@@ -15,12 +15,9 @@ export function isPage(value: string | undefined): value is Page {
   return value === 'home' || value === 'story'
 }
 
-/**
- * Their logo rebuilt in type: a coffee-brown square with "Kape’t" over "Torta" in red script.
- * A stand-in until we have the logo files.
- */
-export function logo(size: 'sm' | 'md' | 'lg' = 'md', className = ''): string {
-  return html`<span class="logo ${size === 'md' ? '' : `logo-${size}`} ${className}" aria-hidden="true"><span class="logo-kape">Kape’t</span><span class="logo-torta">Torta</span></span>`
+/** The linked wordmark gets its accessible name from the surrounding home link. */
+export function logo(): string {
+  return html`<span class="wordmark" aria-hidden="true">Kape’t <span>Torta</span></span>`
 }
 
 /**

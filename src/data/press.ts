@@ -9,8 +9,6 @@
  */
 export const spotlight = {
   quote: 'It’s like being invited to an aunt’s house.',
-  /** The words of `quote` to run the yellow highlighter over. */
-  highlight: 'an aunt’s house.',
   order: 'I love the ube pandesal with cheese, but really, you can’t go wrong.',
   who: 'Jordan Clarkson',
   role: 'New York Knicks guard',

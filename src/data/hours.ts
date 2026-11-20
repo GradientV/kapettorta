@@ -4,7 +4,7 @@ const at = (hour: number, minute = 0) => hour * 60 + minute
 
 /**
  * Weekly hours from Google Maps, Nov 8, 2026 (the same as Culinary Backstreets lists).
- * Sunday first; `null` = closed. Holiday hours go in src/data/notice.ts.
+ * Sunday first; `null` = closed.
  */
 export const hours: WeeklyHours = [
   { opens: at(8), closes: at(20, 30) }, // Sunday

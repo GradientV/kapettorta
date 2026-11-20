@@ -99,7 +99,7 @@ export function head(page: Page): string {
   return html`<title>${esc(title)}</title>
     <meta name="description" content="${esc(description)}" />
     <link rel="canonical" href="${url}" />
-    <meta name="theme-color" content="#3f2459" />
+    <meta name="theme-color" content="#fcfaf6" />
     <meta name="format-detection" content="telephone=no" />
     <meta property="og:type" content="${page === 'home' ? 'restaurant' : 'article'}" />
     <meta property="og:site_name" content="${esc(site.name)}" />

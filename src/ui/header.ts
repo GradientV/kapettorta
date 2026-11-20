@@ -1,4 +1,4 @@
-/** The mobile menu: the toggle opens it; Escape, link clicks and growing past the lg breakpoint close it. */
+/** Keep the disclosure and its accessible state in sync. */
 export function initHeader(): void {
   const header = document.querySelector<HTMLElement>('[data-header]')
   const toggle = header?.querySelector<HTMLButtonElement>('[data-nav-toggle]')
@@ -9,17 +9,12 @@ export function initHeader(): void {
   const closeIcon = toggle.querySelector<HTMLElement>('[data-icon-close]')
   const isOpen = () => toggle.getAttribute('aria-expanded') === 'true'
 
-  // The header sits under the top strip until the page scrolls, so start the panel wherever it ends.
-  const placePanel = () => panel.style.setProperty('--nav-top', `${Math.max(0, header.getBoundingClientRect().bottom)}px`)
-
   const setOpen = (open: boolean) => {
-    if (open) placePanel()
     toggle.setAttribute('aria-expanded', String(open))
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu')
+    toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation')
     panel.hidden = !open
     if (openIcon) openIcon.hidden = open
     if (closeIcon) closeIcon.hidden = !open
-    document.documentElement.classList.toggle('overflow-hidden', open)
   }
 
   toggle.addEventListener('click', () => setOpen(!isOpen()))
@@ -32,9 +27,11 @@ export function initHeader(): void {
       toggle.focus()
     }
   })
-  window.addEventListener('resize', () => {
-    if (isOpen()) placePanel()
-  })
+  const closeOutside = (event: Event) => {
+    if (isOpen() && event.target instanceof Node && !header.contains(event.target)) setOpen(false)
+  }
+  document.addEventListener('pointerdown', closeOutside)
+  document.addEventListener('focusin', closeOutside)
   window.matchMedia('(min-width: 64rem)').addEventListener('change', (event) => {
     if (event.matches) setOpen(false)
   })

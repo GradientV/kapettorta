@@ -3,28 +3,26 @@ import { html } from '../lib/html.ts'
 import { icon } from '../lib/icons.ts'
 import { container, external, logo, weekSummary } from './ui.ts'
 
-const heading = 'text-[0.9rem] font-bold text-cheese'
-const linkClass = 'hover:text-cheese hover:underline underline-offset-4'
+const heading = 'text-[0.9rem] font-semibold text-milk'
+const linkClass = 'hover:text-white hover:underline underline-offset-4'
 
 /** The fixed Call / Directions / Order bar on phones. */
 function actionBar(): string {
   const cell = 'flex flex-col items-center justify-center gap-1 py-2.5 text-[0.85rem] font-bold'
-  return html`<nav aria-label="Quick actions" class="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 divide-x divide-milk/15 border-t border-milk/15 bg-ube-950 pb-[env(safe-area-inset-bottom)] text-milk lg:hidden" style="--focus-ring: var(--color-cheese)">
+  return html`<nav aria-label="Quick actions" class="fixed inset-x-0 bottom-0 z-30 grid grid-cols-3 divide-x divide-rule border-t border-rule bg-milk pb-[env(safe-area-inset-bottom)] text-ink lg:hidden">
     <a class="${cell}" href="${site.phoneHref}">${icon('phone', 'size-5')} Call</a>
     <a class="${cell}" href="${site.links.directions}" ${external}>${icon('pin', 'size-5')} Directions</a>
-    <a class="${cell} bg-cheese text-ink" href="${site.links.order}" ${external}>${icon('bag', 'size-5')} Order</a>
+    <a class="${cell} bg-accent text-white hover:bg-accent-dark" href="${site.links.order}" ${external}>${icon('bag', 'size-5')} Order</a>
   </nav>`
 }
 
-/** Both pages end on a white section, which the scallops along the top of the footer continue. */
 export function footer(): string {
   const { street, locality, region, postalCode } = site.address
-  return html`<div class="scallops bg-ube-950" style="--scallop-color: var(--color-milk)" aria-hidden="true"></div>
-  <footer class="bg-ube-950 text-milk/85" style="--focus-ring: var(--color-cheese)">
+  return html`<footer class="bg-ink text-milk/85" style="--focus-ring: var(--color-milk)">
     <div class="${container} grid gap-10 pt-12 pb-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-      <div class="flex items-start gap-5 sm:col-span-2 lg:col-span-4">
-        <a href="/" aria-label="Kape’t Torta, home">${logo('lg')}</a>
-        <p class="max-w-[17rem] pt-1 text-[0.98rem] text-milk/70"><i>Kape at torta</i> means coffee and cake. Baked and brewed on Queens Blvd since ${site.established}.</p>
+      <div class="sm:col-span-2 lg:col-span-4">
+        <a href="/" class="inline-block text-milk" aria-label="Kape’t Torta, home">${logo()}</a>
+        <p class="mt-3 max-w-[17rem] text-[0.98rem] text-milk/75">Kape at torta means coffee and cake. Baked and brewed on Queens Blvd since ${site.established}.</p>
       </div>
       <div class="lg:col-span-3">
         <h2 class="${heading}">Visit</h2>

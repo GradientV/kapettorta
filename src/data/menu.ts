@@ -10,8 +10,6 @@ export interface MenuItem {
   /** A few words under the name, only where the name doesn't explain itself. */
   note?: string
   price: number
-  /** A small label beside the name, e.g. "Best seller". */
-  tag?: string
 }
 
 export interface MenuGroup {
@@ -36,7 +34,7 @@ export const bakery: MenuGroup = {
   id: 'bakery',
   title: 'From the oven',
   items: [
-    { name: 'Ube cheese pandesal', note: 'Purple yam roll around melted cheese', price: 1.75, tag: 'Best seller' },
+    { name: 'Ube cheese pandesal', note: 'Purple yam roll around melted cheese', price: 1.75 },
     { name: 'Cheese drizzle pandesal', price: 1.75 },
     { name: 'Spanish bread', note: 'Rolled with a sweet, buttery filling', price: 1.75 },
     { name: 'Pan de coco', note: 'Soft bun with sweet coconut', price: 1.75 },

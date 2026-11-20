@@ -57,18 +57,13 @@ export interface ZonedTime {
   day: Weekday
   /** Minutes after midnight. */
   minutes: number
-  /** "2026-11-08", for comparing against notice dates. */
-  date: string
 }
 
-/** The current weekday, time and date at the shop, whatever the visitor's own time zone. */
+/** The current weekday and time at the shop, whatever the visitor's own time zone. */
 export function nowInNewYork(now = new Date()): ZonedTime {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York',
     weekday: 'short',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
     hour: 'numeric',
     minute: 'numeric',
     hourCycle: 'h23',
@@ -78,7 +73,6 @@ export function nowInNewYork(now = new Date()): ZonedTime {
   return {
     day: (day === -1 ? now.getDay() : day) as Weekday,
     minutes: Number(part('hour')) * 60 + Number(part('minute')),
-    date: `${part('year')}-${part('month')}-${part('day')}`,
   }
 }
 

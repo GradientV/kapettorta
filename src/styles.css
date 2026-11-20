@@ -2,33 +2,14 @@
 
 @theme {
   --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
-  /* Chunky and round, like the lettering on an old bakery box. One weight only. */
-  --font-display: "Caprasimo", "Cooper Black", Georgia, serif;
-  /* Only for the red "Torta" in the logo. */
-  --font-script: "Oleo Script", "Brush Script MT", cursive;
-
-  /*
-   * Ube and cheese: the purple of ube halaya and the yellow of the cheese in an ube cheese
-   * pandesal, their best seller, on clean white. The coffee brown and red are kept for the logo,
-   * which is where they come from.
-   */
-  --color-ube-50: #f7f3fa;
-  --color-ube-100: #eee6f5;
-  --color-ube-200: #dccdea;
-  --color-ube-300: #bfa5d8;
-  --color-ube-400: #9d7bc0;
-  --color-ube-500: #7c58a5;
-  --color-ube-600: #61408a;
-  --color-ube-700: #4e3172;
-  --color-ube-800: #3f2459;
-  --color-ube-900: #2b173d;
-  --color-ube-950: #1c0f28;
-  --color-cheese: #f6d061;
-  --color-cheese-200: #fbe8ad;
-  --color-milk: #fcfbf8;
-  --color-ink: #1f1a24;
-  --color-kape: #5a3424;
-  --color-torta: #c4372e;
+  --font-display: "Source Serif 4 Variable", Georgia, serif;
+  --color-milk: #fcfaf6;
+  --color-paper: #f3eee5;
+  --color-rule: #d8cec1;
+  --color-ink: #30251f;
+  --color-muted: #64594f;
+  --color-accent: #854431;
+  --color-accent-dark: #693321;
 }
 
 @layer base {
@@ -36,7 +17,6 @@
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
     -webkit-text-size-adjust: 100%;
-    /* Caprasimo has one weight: never let the browser fake a bold or italic of it. */
     font-synthesis: none;
   }
 
@@ -51,12 +31,11 @@
   }
 
   ::selection {
-    @apply bg-cheese text-ink;
+    @apply bg-accent text-white;
   }
 
-  /* Dark sections set --focus-ring to cheese yellow. */
   :focus-visible {
-    outline: 2px solid var(--focus-ring, var(--color-ube-700));
+    outline: 2px solid var(--focus-ring, var(--color-accent));
     outline-offset: 3px;
   }
 
@@ -68,14 +47,13 @@
 }
 
 @layer components {
-  /* Headings in Caprasimo, sentence case. */
   .display,
   .h1,
   .h2,
   .h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.037em;
     text-wrap: balance;
   }
 
@@ -98,21 +76,16 @@
     @apply text-[0.95rem] leading-snug font-bold;
   }
 
-  /* Square buttons in plain bold type. */
   .btn {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2.5 border-2 px-5 py-3 text-[1rem] leading-tight font-bold whitespace-nowrap transition-colors duration-200;
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-sm border px-5 py-3 text-base leading-tight font-semibold whitespace-nowrap transition-colors duration-150;
   }
 
   .btn-sm {
     @apply px-3.5 py-2 text-[0.95rem];
   }
 
-  .btn-ube {
-    @apply border-ube-800 bg-ube-800 text-milk hover:border-ube-950 hover:bg-ube-950;
-  }
-
-  .btn-cheese {
-    @apply border-cheese bg-cheese text-ink hover:border-milk hover:bg-milk;
+  .btn-primary {
+    @apply border-accent bg-accent text-white hover:border-accent-dark hover:bg-accent-dark;
   }
 
   /* Outline button for light backgrounds. */
@@ -120,13 +93,111 @@
     @apply border-ink text-ink hover:bg-ink hover:text-milk;
   }
 
-  /* Outline button for the purple sections. */
-  .btn-ghost {
-    @apply border-milk/55 text-milk hover:border-milk hover:bg-milk hover:text-ube-800;
-  }
-
   .link {
     @apply underline decoration-current/35 decoration-[1.5px] underline-offset-4 transition hover:decoration-current;
+  }
+
+  .bakery-hero {
+    display: grid;
+    align-items: center;
+    gap: 2rem;
+    padding-block: clamp(2.5rem, 5vw, 4.75rem);
+  }
+
+  .hero-location,
+  .detail-heading {
+    @apply font-semibold text-accent;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .hero-location {
+    display: flex;
+    align-items: center;
+    gap: 0.65em;
+    letter-spacing: 0.115em;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    margin-block: 1.2rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 7vw, 5.35rem);
+    font-weight: 400;
+    letter-spacing: -0.053em;
+    line-height: 1.025;
+  }
+
+  .hero-intro {
+    max-width: 26rem;
+    color: var(--color-muted);
+    font-size: clamp(1.05rem, 1.5vw, 1.1875rem);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .hero-actions {
+    @apply mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mt-8;
+  }
+
+  .menu-link {
+    @apply inline-flex min-h-11 items-center text-base font-semibold underline decoration-rule underline-offset-[6px] hover:text-accent hover:decoration-accent;
+  }
+
+  .hero-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.65;
+    object-fit: cover;
+    background: var(--color-paper);
+  }
+
+  .hero-feature figcaption {
+    @apply flex items-baseline justify-between gap-4 pt-2.5 text-sm text-muted;
+  }
+
+  .hero-feature figcaption span:first-child {
+    @apply font-medium text-ink;
+  }
+
+  @media (min-width: 48rem) {
+    .hero-title {
+      font-size: clamp(2.8rem, 6.25vw, 5.35rem);
+    }
+
+    .bakery-hero {
+      grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+      gap: clamp(2rem, 4vw, 4rem);
+    }
+
+    .hero-photo {
+      aspect-ratio: 1.4;
+    }
+  }
+
+  .shop-details {
+    @apply border-y border-rule bg-paper;
+  }
+
+  .details-grid {
+    @apply grid gap-5 py-6 md:grid-cols-[1fr_1.4fr_1fr] md:gap-6 md:py-8;
+  }
+
+  .detail-value {
+    @apply mt-1 font-display text-[1.375rem] leading-tight tracking-tight;
+  }
+
+  .detail-value a:hover {
+    @apply underline decoration-rule underline-offset-4;
+  }
+
+  .detail-note,
+  .detail-link {
+    @apply mt-1 text-[0.9375rem] leading-snug text-muted;
+  }
+
+  .detail-link {
+    @apply inline-block;
   }
 
   .link-arrow {
@@ -134,95 +205,32 @@
   }
 
   .nav-link {
-    @apply font-semibold underline decoration-transparent decoration-[3px] underline-offset-[10px] transition hover:decoration-cheese;
+    @apply inline-flex min-h-11 items-center text-base font-medium underline decoration-transparent underline-offset-[6px] transition-colors hover:text-accent hover:decoration-current;
   }
 
-  .nav-link[aria-current="page"] {
-    @apply decoration-cheese;
+  .mobile-nav-link {
+    @apply block border-b border-rule py-3 text-lg font-medium hover:text-accent;
   }
 
-  /* A small square label, e.g. "Best seller". */
-  .tag {
-    @apply inline-block bg-cheese px-1.5 py-[0.2rem] align-[0.12em] text-[0.72rem] leading-none font-bold whitespace-nowrap text-ink;
-  }
-
-  /* Highlighter-pen yellow behind a few words. */
-  .highlight {
-    background: linear-gradient(transparent 60%, var(--color-cheese) 60% 92%, transparent 92%);
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
+  :is(.nav-link, .mobile-nav-link)[aria-current="page"] {
+    @apply text-accent underline underline-offset-[6px];
   }
 
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-cheese focus:px-5 focus:py-3 focus:font-bold focus:text-ink;
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-milk focus:px-5 focus:py-3 focus:font-bold focus:text-ink;
   }
 
-  /*
-   * A row of scallops, like a cake doily or the fluted cup a torta bakes in. The element's own
-   * background is the section below; --scallop-color is the section above.
-   */
-  .scallops {
-    --scallop: 1.5rem;
-    height: calc(var(--scallop) / 2);
-    background-image: radial-gradient(circle at 50% 0, var(--scallop-color) calc(var(--scallop) / 2 - 0.5px), transparent calc(var(--scallop) / 2));
-    background-size: var(--scallop) calc(var(--scallop) / 2);
-    background-position: center top;
-    background-repeat: repeat-x;
-  }
-
-  /*
-   * Their logo, rebuilt in type until we have the files: a coffee-brown square, "Kape’t" in white
-   * with a dark outline, "Torta" in red script with a white outline.
-   */
-  .logo {
-    --logo: 3.5rem;
-    display: inline-flex;
-    flex: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: var(--logo);
-    height: var(--logo);
-    padding-bottom: 0.15em;
-    background: var(--color-kape);
-    font-size: calc(var(--logo) * 0.25);
-    line-height: 1;
-  }
-
-  .logo-kape {
+  .wordmark {
     font-family: var(--font-display);
-    color: #fff;
-    text-shadow:
-      0 0.05em 0 #2a150d,
-      0.05em 0 0 #2a150d,
-      0 -0.05em 0 #2a150d,
-      -0.05em 0 0 #2a150d;
+    font-size: clamp(1.85rem, 1.6rem + 0.8vw, 2.35rem);
+    font-weight: 600;
+    letter-spacing: -0.055em;
+    line-height: 1;
+    white-space: nowrap;
   }
 
-  .logo-torta {
-    margin-top: -0.06em;
-    font-family: var(--font-script);
-    font-size: 1.34em;
-    font-weight: 700;
-    color: var(--color-torta);
-    rotate: -5deg;
-    text-shadow:
-      0.045em 0 0 #fff,
-      -0.045em 0 0 #fff,
-      0 0.045em 0 #fff,
-      0 -0.045em 0 #fff,
-      0.035em 0.035em 0 #fff,
-      -0.035em -0.035em 0 #fff,
-      0.035em -0.035em 0 #fff,
-      -0.035em 0.035em 0 #fff;
-  }
-
-  .logo-sm {
-    --logo: 3rem;
-  }
-
-  .logo-lg {
-    --logo: 5.25rem;
+  [data-header] .wordmark span {
+    color: var(--color-accent);
   }
 
   /* Open / closing soon / closed, kept current by src/ui/open-status.ts. */
@@ -243,7 +251,7 @@
   }
 
   [data-state="closed"] .open-dot {
-    @apply bg-torta opacity-100;
+    @apply bg-muted opacity-100;
   }
 
   /* The menu: names and prices on a line, a short note under the few that need one. */
@@ -306,7 +314,7 @@
   }
 
   .hours-table tr[data-today] {
-    @apply bg-cheese-200;
+    @apply bg-paper;
   }
 
   .hours-table tr[data-today] th {
